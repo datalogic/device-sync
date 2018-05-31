@@ -3,7 +3,7 @@ A simple command line tool that makes use of the [datalogic-ce-sync](https://www
 Also uses the nice [CommandLineParser](https://www.nuget.org/packages/CommandLineParser/) library.
 
 ## Run
-* Compiled versions are stored in the [releases](releases) folder. 
+* Compiled versions are stored in the [releases](https://github.com/datalogic/device-sync/releases) folder. 
 * ```device-sync.exe``` will be located inside the **device-sync** folder in a given ZIP file.
 * Start a **Command Prompt** and **cd** in to the **device-sync** folder. 
 * Run ```device-sync.exe``` at a Command Prompt.  Yes, you must have all those .dll files in the same directory as the executable. 
