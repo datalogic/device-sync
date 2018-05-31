@@ -1,4 +1,4 @@
-# datalogic-device-sync-cmd
+# device-sync
 A simple command line tool that makes use of the [datalogic-ce-sync](https://www.nuget.org/packages/datalogic-ce-sync/) library.
 Also uses the nice [CommandLineParser](https://www.nuget.org/packages/CommandLineParser/) library.
 
