@@ -41,7 +41,7 @@ Also uses the nice [CommandLineParser](https://www.nuget.org/packages/CommandLin
   
   
 ## To compile
-You will need DotNet Core 2.0 installed on your machine, which is available as part of Visual Studio 2017.
+You will need DotNet Core 3.0 installed on your machine.
 
 cd into the root project directory. Now run the following command:
 
@@ -50,7 +50,7 @@ cd into the root project directory. Now run the following command:
 
 This will generate a folder containing device-sync.exe along with all necessary dll's, such that you can just drop the folder onto any Windows 7/8/10 PC and run the executable.  The folder is generated at:
 
-    bin/release/netcoreapp2.0/win10-x64/publish
+    bin/release/netcoreapp3.0/win10-x64/publish
 
 
 

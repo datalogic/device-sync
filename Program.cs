@@ -26,11 +26,14 @@ namespace DeviceSync
 
 		private static object RunPushAndReturnExitCode(PushOptions opts)
 		{
-			Console.WriteLine("PushFileToDevice(" + opts.Source + ", " + opts.Destination + ", true)");
+			bool replaceExisting = true;
+
+			Console.WriteLine("PushFileToDevice(" + opts.Source + ", " + opts.Destination + ", " + 
+				replaceExisting + ", " + opts.IP + ")");
 
 			try
 			{
-				bool res = USBLAN.PushFileToDevice(opts.Source, opts.Destination, true);
+				bool res = USBLAN.PushFileToDevice(opts.Source, opts.Destination, replaceExisting, opts.IP);
 				if (!res)
 				{
 					Console.WriteLine("An error occurred.");
@@ -49,11 +52,14 @@ namespace DeviceSync
 
 		private static object RunPullAndReturnExitCode(PullOptions opts)
 		{
-			Console.WriteLine("PullFileFromDevice(" + opts.Source + ", " + opts.Destination + ", true)");
+			bool replaceExisting = true;
+
+			Console.WriteLine("PullFileFromDevice(" + opts.Source + ", " + opts.Destination + ", " + 
+				replaceExisting + ", " + opts.IP + ")");
 
 			try
 			{
-				bool res = USBLAN.PullFileFromDevice(opts.Source, opts.Destination, true);
+				bool res = USBLAN.PullFileFromDevice(opts.Source, opts.Destination, replaceExisting, opts.IP);
 				if (!res)
 				{
 					Console.WriteLine("An error occurred.");
@@ -72,10 +78,11 @@ namespace DeviceSync
 
 		private static object RunStartAndReturnExitCode(StartOptions opts)
 		{
-			Console.WriteLine("StartProcess(" + opts.Cmd + ", " + opts.Parms + ")");
+			Console.WriteLine("StartProcess(" + opts.Cmd + ", " + opts.Parms + ", " + opts.IP + ")");
+
 			try
 			{
-				bool res = USBLAN.StartProcess(opts.Cmd, opts.Parms);
+				bool res = USBLAN.StartProcess(opts.Cmd, opts.Parms, opts.IP);
 				if (!res)
 				{
 					Console.WriteLine("An error occurred.");
@@ -94,17 +101,19 @@ namespace DeviceSync
 
 		private static object RunFindAndReturnExitCode(FindOptions opts)
 		{
-			Console.WriteLine("FindDirectories(" + opts.Directory + ", " + opts.Mask + ")");
-
 			try
 			{
-				IEnumerable<SimpleFileInfo> dirs = USBLAN.FindDirectories(opts.Directory, opts.Mask);
+				Console.WriteLine("FindDirectories(" + opts.Directory + ", " + opts.Mask  + ", " + opts.IP + ")");
+
+				IEnumerable<SimpleFileInfo> dirs = USBLAN.FindDirectories(opts.Directory, opts.Mask, opts.IP);
 				foreach (SimpleFileInfo d in dirs)
 				{
 					Console.WriteLine("d " + d.Name);
 				}
 
-				IEnumerable<SimpleFileInfo> files = USBLAN.FindFiles(opts.Directory, opts.Mask);
+				Console.WriteLine("FindFiles(" + opts.Directory + ", " + opts.Mask  + ", " + opts.IP + ")");
+
+				IEnumerable<SimpleFileInfo> files = USBLAN.FindFiles(opts.Directory, opts.Mask, opts.IP);
 				foreach (SimpleFileInfo f in files)
 				{
 					Console.WriteLine("f " + f.Name);
@@ -122,11 +131,12 @@ namespace DeviceSync
 
 		private static object RunMkdirAndReturnExitCode(MkdirOptions opts)
 		{
-			Console.WriteLine("CreateDirectory(" + opts.Directory + ")");
+
+			Console.WriteLine("CreateDirectory(" + opts.Directory + ", " + opts.IP + ")");
 
 			try
 			{
-				bool res = USBLAN.CreateDirectory(opts.Directory);
+				bool res = USBLAN.CreateDirectory(opts.Directory, opts.IP);
 				if (!res)
 				{
 					Console.WriteLine("An error occurred.");
@@ -146,6 +156,8 @@ namespace DeviceSync
 
 		private static object RunTouchAndReturnExitCode(TouchOptions opts)
 		{
+
+
 			if (opts.Timestamp.CompareTo(new DateTime(1, 1, 1)) == 0)
 			{
 				// No date & time value was passed in (optional parameter)
@@ -153,11 +165,11 @@ namespace DeviceSync
 				opts.Timestamp = DateTime.Now;
 			}
 
-			Console.WriteLine("SetFileDateTime(" + opts.Directory + ", " + opts.Timestamp + ")");
+			Console.WriteLine("SetFileDateTime(" + opts.Directory + ", " + opts.Timestamp + ", " + opts.IP + ")");
 
 			try
 			{
-				bool res = USBLAN.SetFileDateTime(opts.Directory, opts.Timestamp); 
+				bool res = USBLAN.SetFileDateTime(opts.Directory, opts.Timestamp, opts.IP); 
 				if (!res)
 				{
 					Console.WriteLine("An error occurred.");
@@ -176,11 +188,12 @@ namespace DeviceSync
 
 		private static object RunDeleteAndReturnExitCode(DeleteOptions opts)
 		{
-			Console.WriteLine("DeleteFile(" + opts.Directory + ")");
+
+			Console.WriteLine("DeleteFile(" + opts.Directory + ", " + opts.IP + ")");
 
 			try
 			{
-				bool res = USBLAN.DeleteFile(opts.Directory);
+				bool res = USBLAN.DeleteFile(opts.Directory, opts.IP);
 				if (!res)
 				{
 					Console.WriteLine("An error occurred.");

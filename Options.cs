@@ -3,20 +3,19 @@ using CommandLine.Text;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using datalogic_ce_sync;
 
 namespace DeviceSync
 {
 	class Consts
 	{
 		public const String AppName = "device-sync";
+		public const String DefaultIp = USBLAN.DEFAULT_IP;
 	}
 	[Verb("push", HelpText = "Push files to a device")]
 	class PushOptions
 	{
-		// TODO: or should we use the 'adb' model and introduce a new keyword "device-sync connect 192.168.1.1"???
-		// have to store current IP as a shell variable though?
-
-		[Option("ip", HelpText = "IP address of device.")]
+		[Option("ip", HelpText = "IP address of device.", Default = Consts.DefaultIp)]
 		public string IP { get; set; }
 
 		[Value(0, HelpText = "source file to push to device", MetaName = "Source", Required = true)]
@@ -30,7 +29,7 @@ namespace DeviceSync
 		{
 			get
 			{
-				yield return new Example("Push file in current directory over USBLAN", 
+				yield return new Example("Push file in current directory to device", 
 					new PushOptions { Source = "source.txt", Destination = "/Temp/dest.txt" });
 			}
 		}
@@ -39,7 +38,7 @@ namespace DeviceSync
 	[Verb("pull", HelpText = "Pull files from a device")]
 	class PullOptions
 	{
-		[Option("ip", HelpText = "IP address of device.")]
+		[Option("ip", HelpText = "IP address of device.", Default = Consts.DefaultIp)]
 		public string IP { get; set; }
 
 		[Value(0, HelpText = "source file to push to device", MetaName = "Source", Required = true)]
@@ -53,7 +52,7 @@ namespace DeviceSync
 		{
 			get
 			{
-				yield return new Example("Pull file over USBLAN",
+				yield return new Example("Pull file from device",
 					new PullOptions { Source = "/Temp/source.txt", Destination = "c:\\temp\\dest.txt" });
 			}
 		}
@@ -62,7 +61,7 @@ namespace DeviceSync
 	[Verb("start", HelpText = "Start a process on the device")]
 	class StartOptions
 	{
-		[Option("ip", HelpText = "IP address of device.")]
+		[Option("ip", HelpText = "IP address of device.", Default = Consts.DefaultIp)]
 		public string IP { get; set; }
 
 		[Value(0, HelpText = "Path to the program to execute on device", MetaName = "cmd", Required = true)]
@@ -85,7 +84,7 @@ namespace DeviceSync
 	[Verb("find", HelpText = "Search a directory on the device for directories and files whose names satisfy the mask.")]
 	class FindOptions
 	{
-		[Option("ip", HelpText = "IP address of device.")]
+		[Option("ip", HelpText = "IP address of device.", Default = Consts.DefaultIp)]
 		public string IP { get; set; }
 
 		[Value(0, HelpText = "Path to the directory on device to search inside.", MetaName = "directory", Required = true)]
@@ -108,7 +107,7 @@ namespace DeviceSync
 	[Verb("mkdir", HelpText = "Create a new directory on the device.")]
 	class MkdirOptions
 	{
-		[Option("ip", HelpText = "IP address of device.")]
+		[Option("ip", HelpText = "IP address of device.", Default = Consts.DefaultIp)]
 		public string IP { get; set; }
 
 		[Value(0, HelpText = "Path to the directory on device where the directory should be made", MetaName = "directory", Required = true)]
@@ -128,7 +127,7 @@ namespace DeviceSync
 	[Verb("touch", HelpText = "Sets the last modified time of a file on the device")]
 	class TouchOptions
 	{
-		[Option("ip", HelpText = "IP address of device.")]
+		[Option("ip", HelpText = "IP address of device.", Default = Consts.DefaultIp)]
 		public string IP { get; set; }
 
 		[Option("timestamp", HelpText = "Timestamp to set on the file")]
@@ -153,7 +152,7 @@ namespace DeviceSync
 	[Verb("delete", HelpText = "Delete a specified file from the device")]
 	class DeleteOptions
 	{
-		[Option("ip", HelpText = "IP address of device.")]
+		[Option("ip", HelpText = "IP address of device.", Default = Consts.DefaultIp)]
 		public string IP { get; set; }
 
 		[Value(0, HelpText = "Path to the file on the device.", MetaName = "directory", Required = true)]
@@ -164,7 +163,7 @@ namespace DeviceSync
 		{
 			get
 			{
-				yield return new Example("Delete a file over USBLAN",
+				yield return new Example("Delete a file on the device",
 					new DeleteOptions { Directory = "/Temp/file.txt" });
 			}
 		}
